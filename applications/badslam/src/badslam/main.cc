@@ -28,9 +28,12 @@
 
 
 #define LIBVIS_ENABLE_TIMING
+#define BAD_SLAM_HAVE_REALSENSE
 
 // librealsense must be included before any Qt include because some foreach will
 // be misinterpreted otherwise
+
+
 #include "badslam/input_realsense.h"
 #include "badslam/input_structure.h"
 #include "badslam/input_azurekinect.h"

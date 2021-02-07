@@ -192,6 +192,13 @@ elseif(MSVC)
 endif()
 
 
+
+find_library(REALSENSE2_FOUND realsense2 HINTS ${LIBRARY_DIR} REQUIRED)
+if(NOT REALSENSE2_FOUND)
+    SET(REALSENSE2_FOUND "realsense2")
+    message(WARN "Failed to find_library(realsense2)")
+endif()
+
 ################################################################################
 # Helper application bin2c required for building libvis.
 
@@ -208,7 +215,7 @@ target_compile_options(bin2c PRIVATE
   "${LIBVIS_WARNING_OPTIONS}"
 )
 target_link_libraries(bin2c
-  ${Boost_LIBRARIES}
+  ${Boost_LIBRARIES} ${REALSENSE2_FOUND}
 )
 
 
