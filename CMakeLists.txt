@@ -22,7 +22,6 @@ endif()
 
 # Make CMake find the Find<Package>.cmake files in the cmake subdirectory.
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake")
-
 include(CheckLanguage)
 
 
@@ -35,6 +34,8 @@ include(CheckLanguage)
 #       Common settings are either the 'native' arch for which the binary will
 #       be known to run on exclusively, or a broader set of PTX architectures
 #       in case the binary is intended for distribution.
+
+find_package(CUDA REQUIRED)
 check_language(CUDA)
 if (CMAKE_CUDA_COMPILER)
   enable_language(CUDA)
@@ -502,7 +503,7 @@ target_link_libraries(libvis_test PRIVATE
   gtest
   Threads::Threads
   libvis
-  cublas  # TODO: currently required because of lm_optimizer.h. That should not be necessary.
+  ${CUDA_CUBLAS_LIBRARIES}  # TODO: currently required because of lm_optimizer.h. That should not be necessary.
 )
 target_include_directories(libvis_test PRIVATE
   ${gtest_SOURCE_DIR}/include
